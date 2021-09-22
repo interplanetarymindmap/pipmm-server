@@ -1,32 +1,44 @@
 import Mind from "./mind";
 import * as fs from "fs";
+import Utils from "./utils";
+import CidsResponse, { NoteWrap } from "./types";
 
 export default class Repo {
-  static minds: { [mid: string]: Mind };
+  static minds: { [mid: string]: Mind } = {};
 
   static loadMind(mid: string) {
     const path = "~/dev/ipmmRepo/repo.json";
     try {
-      if (fs.existsSync(path)) {
+      let fullPath = Utils.resolveHome(path);
+      if (fs.existsSync(fullPath)) {
         //console.log("Config already exists at " + configPath);
-        let data = JSON.parse(fs.readFileSync(path, "utf8"));
+        let data: { [iid: string]: NoteWrap } = JSON.parse(
+          fs.readFileSync(fullPath, "utf8")
+        );
 
         Repo.minds[mid] = new Mind(data);
         console.log("Mind loaded");
-      }
-      {
-        console.log("Repo: " + path + " couldn't be found");
+      } else {
+        console.log("Repo: " + fullPath + " couldn't be found");
       }
     } catch (e) {
       console.log(e);
     }
   }
 
-  static getIid(mid: string, iid: string) {
-    if (Repo.minds[mid]) {
-      return Repo.minds[mid].getIid(iid);
-    } else {
-      return { iid: iid, error: "Mid not found" };
+  static getCidsResponse(iids: string[]): CidsResponse {
+    let cids: { [iid: string]: string } = {};
+    let blocks: { [cid: string]: any } = {};
+
+    for (let iid of iids) {
+      if (Repo.minds["x"]) {
+        let noteWrap = Repo.minds["x"].getNoteWrap(iid);
+        cids[iid] = noteWrap.cid;
+        blocks[noteWrap.cid] = noteWrap.block;
+      }
     }
+
+    const cidsResponse = new CidsResponse(cids, blocks);
+    return cidsResponse;
   }
 }

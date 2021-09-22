@@ -1,15 +1,17 @@
+import { NoteWrap } from "./types";
+
 export default class Mind {
-  notes: { [iid: string]: any };
+  notes: { [iid: string]: NoteWrap };
 
   constructor(notes: { [iid: string]: any }) {
     this.notes = notes;
   }
 
-  getIid(iid: string): { iid: string; note?: any; error?: string } {
+  getNoteWrap(iid: string): NoteWrap {
     if (this.notes[iid]) {
-      return { iid: iid, note: this.notes[iid] };
+      return this.notes[iid];
     } else {
-      return { iid: iid, error: "Iid not found" };
+      return { iid: iid, cid: "", block: {} };
     }
   }
 }
