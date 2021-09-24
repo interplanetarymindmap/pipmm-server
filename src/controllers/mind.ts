@@ -1,9 +1,9 @@
-import { NoteWrap } from "./types";
+import { MindRepo, NoteWrap } from "./types";
 
 export default class Mind {
-  notes: { [iid: string]: NoteWrap };
+  notes: MindRepo;
 
-  constructor(notes: { [iid: string]: any }) {
+  constructor(notes: MindRepo) {
     this.notes = notes;
   }
 

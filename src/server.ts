@@ -11,7 +11,8 @@ router.use(morgan("dev"));
 /** Parse the request */
 router.use(express.urlencoded({ extended: false }));
 /** Takes care of JSON data */
-router.use(express.json());
+//router.use(express.json());
+router.use(express.json({ limit: "50mb" }));
 
 /** RULES OF OUR API */
 router.use((req, res, next) => {
@@ -39,9 +40,9 @@ router.use((req, res, next) => {
 });
 
 /** Repos **/
-Repo.loadMind("x");
+//Repo.loadLocalMind("x");
 
 /** Server */
 const httpServer = http.createServer(router);
-const PORT: any = process.env.PORT ?? 6060;
+const PORT: any = process.env.PORT ?? 8080;
 httpServer.listen(PORT, () => console.log(`The server is running on port ${PORT}`));

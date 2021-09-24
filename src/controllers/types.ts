@@ -17,3 +17,7 @@ export interface NoteWrap {
   cid: string;
   block: { [key: string]: any };
 }
+
+export interface MindRepo {
+  [iid: string]: NoteWrap;
+}
