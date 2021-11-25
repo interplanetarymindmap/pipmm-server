@@ -4,7 +4,6 @@ import { NoteWrap } from "./types";
 import Utils from "./utils";
 
 const getCids = async (req: Request, res: Response, next: NextFunction) => {
-  console.log("here");
   let iids: string[] = req.params.iids.split(",");
   let response = Repo.getCidsResponse(iids);
   return res.status(200).json({
@@ -18,11 +17,8 @@ const restore = async (req: Request, res: Response, next: NextFunction) => {
   let mid: string = req.params.mid;
   if (mid == "x") console.log("Valid!");
   //TODO check signature
-  // get the data from req.body
-  //if(req.body!=null)
-  let mindRepo: Map<String, NoteWrap> = Utils.toMapOfNotes(req.body);
-  Repo.restore(mid, mindRepo);
-  // return response
+  let abstractions: Map<String, NoteWrap> = Utils.toMapOfNotes(req.body);
+  Repo.restore(mid, abstractions);
   return res.status(200).json({
     message: "Repo destoryed and restored successfully with new abstractions",
   });
@@ -34,11 +30,9 @@ const update = async (req: Request, res: Response, next: NextFunction) => {
   let mid: string = req.params.mid;
   if (mid == "x") console.log("Valid!");
   //TODO check signature
-  // get the data from req.body
-  let mindRepo: Map<String, NoteWrap> = req.body ?? null;
+  let abstractions: Map<String, NoteWrap> = Utils.toMapOfNotes(req.body);
+  Repo.update(mid, abstractions);
 
-  Repo.restore(mid, mindRepo);
-  // return response
   return res.status(200).json({
     message: "Abstractions uploaded successfully!",
   });
