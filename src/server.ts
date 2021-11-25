@@ -1,8 +1,7 @@
 import http from "http";
 import express, { Express } from "express";
 import morgan from "morgan";
-import routes from "./routes/cids";
-import Repo from "./controllers/repo";
+import routes from "./routes/requests";
 
 const router: Express = express();
 

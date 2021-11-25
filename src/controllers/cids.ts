@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction, response } from "express";
 import Repo from "./repo";
-import { MindRepo } from "./types";
+import { NoteWrap } from "./types";
+import Utils from "./utils";
 
 const getCids = async (req: Request, res: Response, next: NextFunction) => {
   console.log("here");
@@ -11,20 +12,37 @@ const getCids = async (req: Request, res: Response, next: NextFunction) => {
   });
 };
 
-// updating a post
-const updateMind = async (req: Request, res: Response, next: NextFunction) => {
+// Destroys current repo and replaces it by the new set of abstractions
+const restore = async (req: Request, res: Response, next: NextFunction) => {
   // get the post id from the req.params
   let mid: string = req.params.mid;
   if (mid == "x") console.log("Valid!");
   //TODO check signature
   // get the data from req.body
-  let mindRepo: MindRepo = req.body ?? null;
-  Repo.loadMind(mid, mindRepo);
+  //if(req.body!=null)
+  let mindRepo: Map<String, NoteWrap> = Utils.toMapOfNotes(req.body);
+  Repo.restore(mid, mindRepo);
   // return response
   return res.status(200).json({
-    message: "Good good",
+    message: "Repo destoryed and restored successfully with new abstractions",
   });
 };
+
+// Replaces abstraction
+/*const update = async (req: Request, res: Response, next: NextFunction) => {
+  // get the post id from the req.params
+  let mid: string = req.params.mid;
+  if (mid == "x") console.log("Valid!");
+  //TODO check signature
+  // get the data from req.body
+  let mindRepo: Map<String, NoteWrap> = req.body ?? null;
+
+  Repo.restore(mid, mindRepo);
+  // return response
+  return res.status(200).json({
+    message: "Abstractions uploaded successfully!",
+  });
+};*/
 
 /*
 // deleting a post
@@ -56,4 +74,4 @@ const addPost = async (req: Request, res: Response, next: NextFunction) => {
 };
 */
 //export default { getPosts, getPost, updatePost, deletePost, addPost };
-export default { getCids, updateMind };
+export default { getCids, restore, update };

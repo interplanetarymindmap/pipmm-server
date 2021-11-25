@@ -8,9 +8,9 @@ export default class CidsResponse {
   }
 }
 
-export interface NoteBlock {
+/*export interface NoteBlock {
   [key: string]: any;
-}
+}*/
 
 export interface NoteWrap {
   iid: string;
@@ -18,6 +18,6 @@ export interface NoteWrap {
   block: { [key: string]: any };
 }
 
-export interface MindRepo {
+/*export interface AbstractionsSet {
   [iid: string]: NoteWrap;
-}
+}*/

@@ -1,15 +1,16 @@
-import { MindRepo, NoteWrap } from "./types";
+import { NoteWrap } from "./types";
 
 export default class Mind {
-  notes: MindRepo;
+  notes: Map<String, NoteWrap>;
 
-  constructor(notes: MindRepo) {
-    this.notes = notes;
+  constructor(_notes: Map<String, NoteWrap>) {
+    this.notes = _notes;
   }
 
   getNoteWrap(iid: string): NoteWrap {
-    if (this.notes[iid]) {
-      return this.notes[iid];
+    let note = this.notes.get(iid);
+    if (note) {
+      return note;
     } else {
       return { iid: iid, cid: "", block: {} };
     }

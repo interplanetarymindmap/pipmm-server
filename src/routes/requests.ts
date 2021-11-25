@@ -4,7 +4,8 @@ const router = express.Router();
 
 //router.get("/posts", controller.getPosts);
 router.get("/iids/:iids", controller.getCids);
-router.put("/uploadMindRepo/:mid", controller.updateMind);
+router.put("/restore/:mid", controller.restore);
+router.put("/update/:mid", controller.update);
 //router.delete("/posts/:id", controller.deletePost);
 //router.post("/posts", controller.addPost);
 
