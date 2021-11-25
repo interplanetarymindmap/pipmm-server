@@ -4,9 +4,9 @@ export default class CidsResponse {
   cids: { [iid: string]: string };
   blocks: { [cid: string]: any };
 
-  constructor(cids: Map<String, String>, blocks: Map<String, any>) {
-    this.cids = Utils.mapToObj(cids);
-    this.blocks = Utils.mapToObj(blocks);
+  constructor(cids: { [iid: string]: string }, blocks: { [cid: string]: any }) {
+    this.cids = cids;
+    this.blocks = blocks;
   }
 }
 
