@@ -44,14 +44,17 @@ export default class Repo {
   }
 
   static getCidsResponse(iids: string[]): CidsResponse {
-    let cids: { [iid: string]: string } = {};
-    let blocks: { [cid: string]: any } = {};
+    let cids: Map<String, String> = new Map();
+    let blocks: Map<String, any> = new Map();
 
     for (let iid of iids) {
       if (Repo.minds["x"]) {
         let noteWrap = Repo.minds["x"].getNoteWrap(iid);
-        cids[iid] = noteWrap.cid;
-        blocks[noteWrap.cid] = noteWrap.block;
+        console.log(iid, noteWrap.cid);
+        cids.set(iid, noteWrap.cid);
+        //cids[iid] = noteWrap.cid;
+        blocks.set(noteWrap.cid, noteWrap.block);
+        //blocks[noteWrap.cid] = noteWrap.block;
       }
     }
 

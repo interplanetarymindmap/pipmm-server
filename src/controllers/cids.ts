@@ -29,7 +29,7 @@ const restore = async (req: Request, res: Response, next: NextFunction) => {
 };
 
 // Replaces abstraction
-/*const update = async (req: Request, res: Response, next: NextFunction) => {
+const update = async (req: Request, res: Response, next: NextFunction) => {
   // get the post id from the req.params
   let mid: string = req.params.mid;
   if (mid == "x") console.log("Valid!");
@@ -42,7 +42,7 @@ const restore = async (req: Request, res: Response, next: NextFunction) => {
   return res.status(200).json({
     message: "Abstractions uploaded successfully!",
   });
-};*/
+};
 
 /*
 // deleting a post

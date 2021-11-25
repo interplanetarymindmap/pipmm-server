@@ -12,7 +12,7 @@ export default class Mind {
     if (note) {
       return note;
     } else {
-      return { iid: iid, cid: "", block: {} };
+      return { iid: iid, cid: "", block: new Map<String, any>() };
     }
   }
 }

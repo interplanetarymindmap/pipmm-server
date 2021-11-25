@@ -11,11 +11,15 @@ export default class Utils {
     return filepath;
   };
 
-  static toMapOfNotes(obj: any): Map<String, NoteWrap> {
-    let map = new Map<String, NoteWrap>();
+  static toMapOfNotes(obj: any): Map<String, any> {
+    let map = new Map<String, any>();
     for (var iid in obj) {
       map.set(iid, obj[iid]);
     }
     return map;
+  }
+
+  static mapToObj(map: Map<String, any>) {
+    return Object.fromEntries(map);
   }
 }
