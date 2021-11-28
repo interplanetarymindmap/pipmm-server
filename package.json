@@ -4,7 +4,7 @@
   "description": "",
   "main": "build/server.js",
   "scripts": {
-    "dev": "nodemon src/server.ts",
+    "dev": "nodemon src/index.ts",
     "build": "rm -rf build/ && prettier --write src/ && tsc"
   },
   "keywords": [],
