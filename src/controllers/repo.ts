@@ -14,9 +14,7 @@ export default class Repo {
         //console.log("Config already exists at " + configPath);
         // let data: { [iid: string]: NoteWrap } = JSON.parse(fs.readFileSync(fullPath, "utf8"));
 
-        let notes: Map<String, NoteWrap> = JSON.parse(
-          fs.readFileSync(fullPath, "utf8")
-        );
+        let notes: Map<String, NoteWrap> = JSON.parse(fs.readFileSync(fullPath, "utf8"));
 
         Repo.minds.set(mid, new Mind(notes));
         //Repo.minds[mid] = new Mind(data);
@@ -31,28 +29,20 @@ export default class Repo {
   static restore(mid: string, notes: Map<String, NoteWrap>) {
     try {
       //Repo.minds[mid] = new Mind(notes);
-      console.log("Restoring: " + mid);
-      console.log(Repo.minds.has(mid));
+
       Repo.minds.set(mid, new Mind(notes));
-      console.log("Restored " + notes.entries.length);
     } catch (e) {
       console.log(e);
     }
   }
   static update(mid: string, notes: Map<String, NoteWrap>) {
     try {
-      console.log("Updating: " + mid);
-      console.log(Repo.minds.has(mid));
       if (!Repo.minds.has(mid)) {
         //if (!Repo.minds[mid]) {
         Repo.restore(mid, notes);
-        console.log("restored while updating");
         return;
       }
-      const map = new Map([
-        ...Repo.minds.get(mid)!.notes.entries(),
-        ...notes.entries(),
-      ]);
+      const map = new Map([...Repo.minds.get(mid)!.notes.entries(), ...notes.entries()]);
 
       //const map = new Map([...Repo.minds[mid].notes.entries(), ...notes.entries()]);
       //Repo.minds[mid] = new Mind(notes);
