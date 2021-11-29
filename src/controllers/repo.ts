@@ -14,7 +14,9 @@ export default class Repo {
         //console.log("Config already exists at " + configPath);
         // let data: { [iid: string]: NoteWrap } = JSON.parse(fs.readFileSync(fullPath, "utf8"));
 
-        let notes: Map<String, NoteWrap> = JSON.parse(fs.readFileSync(fullPath, "utf8"));
+        let notes: Map<String, NoteWrap> = JSON.parse(
+          fs.readFileSync(fullPath, "utf8")
+        );
 
         Repo.minds.set(mid, new Mind(notes));
         //Repo.minds[mid] = new Mind(data);
@@ -38,15 +40,17 @@ export default class Repo {
   static update(mid: string, notes: Map<String, NoteWrap>) {
     try {
       if (!Repo.minds.has(mid)) {
-        //if (!Repo.minds[mid]) {
+        console.log("Mind " + mid + " does not exist yet. Creating it");
         Repo.restore(mid, notes);
+
         return;
       }
-      const map = new Map([...Repo.minds.get(mid)!.notes.entries(), ...notes.entries()]);
+      const mergedNotes = new Map([
+        ...Repo.minds.get(mid)!.notes.entries(),
+        ...notes.entries(),
+      ]);
 
-      //const map = new Map([...Repo.minds[mid].notes.entries(), ...notes.entries()]);
-      //Repo.minds[mid] = new Mind(notes);
-      Repo.minds.set(mid, new Mind(notes));
+      Repo.minds.get(mid)!.notes = mergedNotes;
     } catch (e) {}
   }
 

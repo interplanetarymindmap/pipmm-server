@@ -1,3 +1,4 @@
+import { Console } from "console";
 import { Request, Response, NextFunction, response } from "express";
 import Repo from "./repo";
 import { NoteWrap } from "./types";
@@ -15,7 +16,6 @@ const getCids = async (req: Request, res: Response, next: NextFunction) => {
 const restore = async (req: Request, res: Response, next: NextFunction) => {
   // get the post id from the req.params
   let mid: string = req.params.mid;
-  if (mid == "x") console.log("Valid!");
   //TODO check signature
   let abstractions: Map<String, NoteWrap> = Utils.toMapOfNotes(req.body);
   Repo.restore(mid, abstractions);
@@ -28,7 +28,6 @@ const restore = async (req: Request, res: Response, next: NextFunction) => {
 const update = async (req: Request, res: Response, next: NextFunction) => {
   // get the post id from the req.params
   let mid: string = req.params.mid;
-  if (mid == "x") console.log("Valid!");
   //TODO check signature
   let abstractions: Map<String, NoteWrap> = Utils.toMapOfNotes(req.body);
   Repo.update(mid, abstractions);
