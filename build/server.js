@@ -44,6 +44,11 @@ class Server {
         /** Takes care of JSON data */
         //router.use(express.json());
         this.router.use(express_1.default.json({ limit: "50mb" }));
+        this.router.use(express_1.default.urlencoded({
+            limit: "50mb",
+            extended: true,
+            parameterLimit: 50000,
+        }));
         /** RULES OF OUR API */
         this.router.use((req, res, next) => {
             // set the CORS policy

@@ -17,6 +17,7 @@ const restore = async (req: Request, res: Response, next: NextFunction) => {
   // get the post id from the req.params
   let mid: string = req.params.mid;
   //TODO check signature
+
   let abstractions: Map<String, NoteWrap> = Utils.toMapOfNotes(req.body);
   Repo.restore(mid, abstractions);
   return res.status(200).json({

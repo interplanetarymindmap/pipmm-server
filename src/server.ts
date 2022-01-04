@@ -2,7 +2,6 @@ import http from "http";
 import express, { Express } from "express";
 import morgan from "morgan";
 import routes from "./routes/requests";
-import { toUSVString } from "util";
 
 export class Server {
   port: Number;
@@ -20,6 +19,13 @@ export class Server {
     /** Takes care of JSON data */
     //router.use(express.json());
     this.router.use(express.json({ limit: "50mb" }));
+    this.router.use(
+      express.urlencoded({
+        limit: "50mb",
+        extended: true,
+        parameterLimit: 50000,
+      })
+    );
 
     /** RULES OF OUR API */
     this.router.use((req, res, next) => {

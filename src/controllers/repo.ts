@@ -29,13 +29,24 @@ export default class Repo {
   }
 
   static restore(mid: string, notes: Map<String, NoteWrap>) {
+    let originalNotesAmount = 0;
+    if (Repo.minds.has(mid)) {
+      originalNotesAmount = Repo.minds.get(mid)!.notes.size;
+    }
     try {
-      //Repo.minds[mid] = new Mind(notes);
-
       Repo.minds.set(mid, new Mind(notes));
     } catch (e) {
       console.log(e);
     }
+    let currentNotesAmount = Repo.minds.get(mid)?.notes.size;
+    console.log(
+      "MID " +
+        mid +
+        " had " +
+        originalNotesAmount +
+        " abstractions, now has " +
+        currentNotesAmount
+    );
   }
   static update(mid: string, notes: Map<String, NoteWrap>) {
     try {

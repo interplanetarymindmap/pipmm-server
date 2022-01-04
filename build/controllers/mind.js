@@ -1,15 +1,17 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 class Mind {
-    constructor(notes) {
-        this.notes = notes;
+    constructor(_notes) {
+        this.notes = new Map();
+        this.notes = _notes;
     }
     getNoteWrap(iid) {
-        if (this.notes[iid]) {
-            return this.notes[iid];
+        let note = this.notes.get(iid);
+        if (note) {
+            return note;
         }
         else {
-            return { iid: iid, cid: "", block: {} };
+            return { iid: iid, cid: "", block: new Map() };
         }
     }
 }

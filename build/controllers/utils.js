@@ -21,6 +21,16 @@ var __importStar = (this && this.__importStar) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const path = __importStar(require("path"));
 class Utils {
+    static toMapOfNotes(obj) {
+        let map = new Map();
+        for (var iid in obj) {
+            map.set(iid, obj[iid]);
+        }
+        return map;
+    }
+    static mapToObj(map) {
+        return Object.fromEntries(map);
+    }
 }
 exports.default = Utils;
 Utils.resolveHome = (filepath) => {
